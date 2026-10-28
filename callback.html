@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Permiso de TikTok</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body><main>
+<h1>Permiso de TikTok</h1>
+<p id="mensaje">Esta página recibe la respuesta de TikTok cuando das permiso a la app.</p>
+<p class="nota">Nada de esta página se envía a ningún sitio: solo se muestra aquí.</p>
+<script>
+  // TikTok vuelve a esta página con ?code=... en la dirección. Lo mostramos para copiarlo.
+  var datos = new URLSearchParams(window.location.search);
+  var mensaje = document.getElementById("mensaje");
+  if (datos.get("code")) {
+    mensaje.innerHTML = "Permiso concedido. Copia este código y pégalo donde te indique Claude (caduca en unos minutos):<br><br><code></code>";
+    mensaje.querySelector("code").textContent = datos.get("code");
+  } else if (datos.get("error")) {
+    mensaje.textContent = "TikTok ha devuelto un error: " + datos.get("error") + " " + (datos.get("error_description") || "");
+  }
+</script>
+</main></body>
+</html>
